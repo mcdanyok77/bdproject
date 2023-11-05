@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Круговая диаграмма</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Круговая диаграмма</h1>
+    <img src="data:image/png;base64, {{ img_data }}" alt="Круговая диаграмма">
+    <br>
+
+    <h1>Столбчатая диаграмма: Распределение стоимости аренды в день</h1>
+    <div>
+        <img src="static/bar_chart.png" alt="Столбчатая диаграмма">
+    </div>
+    <a href="/main">Назад</a>
+</body>
+</html>

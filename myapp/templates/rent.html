@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>аренда</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Аренда</h1>
+    <a href="/main" type="submit">Назад</a>
+    <a href="/clients">Перейти к клиентам</a>
+    <a href="/monthlypayment">Перейти к ежемесячным платежам</a>
+
+    <form method="post" action="/rent">
+        {% csrf_token %}
+        <input type="text" name="keyword" placeholder="Поиск" id="keyword">
+        <button type="submit">Поиск</button>
+        <button type="reset" id="reset-search-rent">Отмена поиска</button>
+    </form>
+
+    <table id="rent-table">
+        <tr>
+            <th>Номер аренды</th>
+            <th>Торговая точка</th>
+            <th>Клиент</th>
+            <th>Период аренды</th>
+            <th>Действия</th> 
+        </tr>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.rentID }}</td>
+            <td>{{ item.outlet }}</td>
+            <td>{{ item.client.name }}</td>
+            <td>{{ item.rentalPeriod }}</td>
+            <td>
+                <form method="post" action="/clients/edit/{{ row.0 }}">
+                    <button type="submit">Изменить</button>
+                </form>
+                <form method="post" action="/clients/delete/{{ row.0 }}">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#keyword').on('input', function() {
+                var keyword = $(this).val();
+                // Отправить AJAX-запрос на сервер для фильтрации данных и обновления таблицы
+                $.ajax({
+                    url: '/rent/filter',
+                    method: 'POST',
+                    data: { keyword: keyword },
+                    success: function(data) {
+                        // Обновить таблицу с отфильтрованными данными
+                        $('#rent-table').html(data);
+                    }
+                });
+            });
+    
+            $('#reset-search-rent').on('click', function() {
+                // Сброс поискового поля и отправка запроса на сервер
+                $('#keyword').val('');
+                $.ajax({
+                    url: '/rent',
+                    method: 'GET',
+                    success: function(data) {
+                        // Обновить таблицу с полными данными
+                        $('#rent-table').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

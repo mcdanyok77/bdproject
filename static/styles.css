@@ -1,0 +1,64 @@
+/* Общие стили для таблиц */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Стили для заголовков таблицы */
+th {
+    background-color: #f2f2f2;
+}
+
+/* Стили для четных строк таблицы */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Стили для нечетных строк таблицы */
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Стили для кнопок */
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Стили для текстовых полей ввода */
+input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+/* Стили для кнопки поиска */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Стили для кнопки "Отмена поиска" */
+button[type="reset"] {
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}

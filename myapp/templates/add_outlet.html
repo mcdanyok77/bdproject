@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление записи</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Добавление записи</h1>
+    <form method="post" action="/outlets/add/">
+        {% csrf_token %}
+        <label for="new_outletsID">Номер точки:</label>
+        <input type="text" name="new_outletsID" required><br>
+
+        <label for="new_floor">Этаж:</label>
+        <input type="text" name="new_floor" required><br>
+    
+        <label for="new_area">Площадь:</label>
+        <input type="text" name="new_area" required><br>
+    
+        <label for="new_priceDay">Стоимость в день:</label>
+        <input type="text" name="new_priceDay" required><br>
+    
+        <button type="submit">Добавить</button>
+    </form>
+    
+    <a href="/outlets">Назад к списку</a>
+</body>
+</html>

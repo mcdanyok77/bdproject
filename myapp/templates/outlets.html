@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Торговые точки</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Торговые точки</h1>
+    <a href="/main">Назад</a>
+    <a href="/clients">Перейти к клиентам</a>
+    <a href="/outlets_charts">Показать диаграммы</a>
+
+    <form method="post" action="/outlets/">
+        {% csrf_token %}
+        <input type="text" name="keyword" placeholder="Поиск" id="keyword">
+        <button type="submit">Поиск</button>
+        <button type="reset" id="reset-search">Отмена поиска</button>
+    </form>
+    <a href="/outlets/add/">Добавить новую запись</a>
+
+    <table id="outlets-table">
+        <tr>
+            <th>Номер точки</th>
+            <th>Этаж</th>
+            <th>Площадь</th>
+            <th>Стоимость аренды в день</th>
+            <th>Действия</th> 
+        </tr>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.outletsID }}</td>
+            <td>{{ item.floor }}</td>
+            <td>{{ item.area }}</td>
+            <td>{{ item.priceDay }}</td>
+            <td>
+                <form method="get" action="/outlets/edit/{{ item.outletsID }}">
+                    <button type="submit">Изменить</button>
+                </form>
+                <form method="post" action="/outlets/delete/{{ item.outletsID }}">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#keyword').on('input', function() {
+                var keyword = $(this).val();
+                // Отправить AJAX-запрос на сервер для фильтрации данных и обновления таблицы
+                $.ajax({
+                    url: '/outlets/filter',
+                    method: 'POST',
+                    data: { keyword: keyword },
+                    success: function(data) {
+                        // Обновить таблицу с отфильтрованными данными
+                        $('#outlets-table').html(data);
+                    }
+                });
+            });
+            $('#reset-search').on('click', function() {
+                // Сброс поискового поля и отправка запроса на сервер
+                $('#keyword').val('');
+                $.ajax({
+                    url: '/outlets',
+                    method: 'GET',
+                    success: function(data) {
+                        // Обновить таблицу с полными данными
+                        $('#outlets-table').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
