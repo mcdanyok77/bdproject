@@ -35,10 +35,10 @@
             <td>{{ item.phoneNumber }}</td>
             <td>{{ item.adres }}</td>
             <td>
-                <form method="post" action="/clients/edit/{{ row.0 }}">
+                <form method="get" action="/clients/edit/{{ item.clientID}}">
                     <button type="submit">Изменить</button>
                 </form>
-                <form method="post" action="/clients/delete/{{ row.0 }}">
+                <form method="post" action="/clients/delete/{{ item.clientID }}">
                     {% csrf_token %}
                     <button type="submit">Удалить</button>
                 </form>

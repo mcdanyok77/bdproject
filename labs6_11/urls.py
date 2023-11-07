@@ -26,6 +26,9 @@ urlpatterns = [
     path('outlets/edit/<int:outlet_id>/', views.edit_outlet, name='edit_outlet'),
     path('outlets/delete/<int:outlet_id>/', views.delete_outlet, name='delete_outlet'),
     path('clients/', views.clients_page, name='clients'),
+    path('clients/add/', views.add_client, name='add_client'),
+    path('clients/edit/<int:client_id>/', views.edit_client, name='edit_client'),
+    path('clients/delete/<int:client_id>/', views.delete_client, name='delete_client'),
     path('rent/', views.rent_page, name='rent'), 
     path('monthlypayment/', views.monthlypayment_page, name='monthlypayment'), 
 ]

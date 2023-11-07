@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление записи</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Добавление записи</h1>
+    <form method="post" action="/clients/add/">
+        {% csrf_token %}
+        <label for="new_clientID">Номер клиента:</label>
+        <input type="text" name="new_clientID" required><br>
+
+        <label for="new_name">Имя клиента:</label>
+        <input type="text" name="new_name" required><br>
+    
+        <label for="new_phoneNumber">Номер телефона:</label>
+        <input type="text" name="new_phoneNumber" required><br>
+    
+        <label for="new_adres">Адрес:</label>
+        <input type="text" name="new_adres" required><br>
+    
+        <button type="submit">Добавить</button>
+    </form>
+    
+    <a href="/clients">Назад к списку</a>
+</body>
+</html>
